@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Booking {
+  id            Int      @id @default(autoincrement())
+  room_id       Int
+  guest_id      Int
+  checkin_date  DateTime
+  checkout_date DateTime
+  amount        Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime
+  Guest         Guest    @relation(fields: [guest_id], references: [id])
+  Room          Room     @relation(fields: [room_id], references: [id])
+}
+
+model Guest {
+  id        Int       @id @default(autoincrement())
+  name      String
+  city      String
+  mobile    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  Booking   Booking[]
+}
+
+model Room {
+  id          Int        @id @default(autoincrement())
+  room_number String     @unique
+  status      RoomStatus @default(PERSONAL_USE)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  Booking     Booking[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+enum RoomStatus {
+  OCCUPIED
+  FREE
+  PERSONAL_USE
+}

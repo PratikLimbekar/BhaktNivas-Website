@@ -1,0 +1,9 @@
+.rotate-map svg {
+    /* width: 90vw; */
+    /* height: 90vh; */
+    transform: rotate(90deg);
+    transform-origin: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
