@@ -67,6 +67,7 @@ function RoomDetails() {
                     Status <br></br>
                     Name <br></br>
                     City <br></br>
+                    Mobile <br></br>
                     In-time <br></br>
                     Out-time <br></br>
                     Amount <br></br>
