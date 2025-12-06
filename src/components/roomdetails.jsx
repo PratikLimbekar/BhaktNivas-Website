@@ -11,7 +11,6 @@ function RoomDetails() {
     
     function handleAssignRoom() {
         setAssignRoom(true);
-        // setSelectedRoom(null);
     }
 
     const [roomdetails, setroomdetails] = useState([]);
@@ -19,6 +18,8 @@ function RoomDetails() {
     useEffect(() => {
         axios.get("http://localhost:4000/roomdata").then(res => setroomdetails(res.data));
     }, []);
+
+
 
     function handleSubmit() {
         
@@ -62,11 +63,12 @@ function RoomDetails() {
                     {`Room: ${selectedroom.name}`}
                     <button onClick={() => setSelectedRoom(null)} style={{"marginLeft": "auto"}}> X </button>
                 </div>
-                
+                 {/* hie */}
                 <div id='room-details'>
                     Status <br></br>
                     Name <br></br>
                     City <br></br>
+                    Mobile <br></br>
                     In-time <br></br>
                     Out-time <br></br>
                     Amount <br></br>

@@ -1,0 +1,26 @@
+So, Prisma is idiotically idiot.
+
+While running your index.js, i.e. the following code:
+import express from "express";
+import { Prisma, PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+it gives the following error:
+PrismaClientInitializationError: `PrismaClient` needs to be constructed with a non-empty, valid `PrismaClientOptions`:
+
+This is due to us using Prisma 7.
+What we should do is:
+PostgreSQL requires the official adapter.
+So,
+npm install @prisma/adapter-pg
+
+And then instantiate the Prisma Client using that:
+import 'dotenv/config';
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '../generated/prisma/client'
+
+const connectionString = `${process.env.DATABASE_URL}`
+
+const adapter = new PrismaPg({ connectionString })
+const prisma = new PrismaClient({ adapter })

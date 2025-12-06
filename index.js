@@ -15,13 +15,15 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/roomdata", async(req, res) => {
-    // try {
+    try {
         const roomdata = await prisma.room.findMany();
         res.json(roomdata);
-    // } catch (err) {
-    //     console.error(err);
-    //     res.status(500).json({ error: "Failed to fetch room data" });
-    // }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to fetch room data" });
+    }
 });
+
+
 
 app.listen(4000, () => console.log("Server running on 4000"));
