@@ -14,7 +14,7 @@ function FloorMap() {
 
     const statusColors = {
         PERSONAL_USE: "#4c4cffff",
-        OCCUPIED: "#F5B7B1",
+        OCCUPIED: "#f95547ff",
         FREE: "#0aec55ff",
         DEFAULT: "#D9D9D9"
     };
