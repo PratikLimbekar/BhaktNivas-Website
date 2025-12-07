@@ -24,6 +24,37 @@ app.get("/roomdata", async(req, res) => {
     }
 });
 
+app.post("/set-status", async (req, res) => {
+    try {
+        const payload = req.body;
+
+        const statusMap = {
+        "Occupied": "OCCUPIED",
+        "Free": "FREE",
+        "Personal Use": "PERSONAL_USE",
+        // allow direct enum too
+        "OCCUPIED": "OCCUPIED",
+        "FREE": "FREE",
+        "PERSONAL_USE": "PERSONAL_USE"
+        };
+
+        const mappedStatus = statusMap[payload.status];
+        if (!mappedStatus) return res.status(400).json({error: "Invalid Status"});
+
+        const roomId = Number(payload.room);
+
+        const room = await prisma.room.update({
+                where: {id:(roomId)},
+                data: {status: mappedStatus, updatedAt: new Date()}
+            });
+        return res.status(201).json(room);
+    } catch (err) {
+        console.error("Booking creation error:", err);
+    // detect prisma known errors and respond accordingly
+    return res.status(500).json({ error: "Internal server error", details: err.message });
+    }
+})
+
 app.post("/book", async(req, res) => {
     try {
         const payload = req.body;
@@ -56,8 +87,6 @@ app.post("/book", async(req, res) => {
             const existingGuest = await tx.guest.findUnique({
                 where: {mobile: mobile}
             });
-
-
 
             let guest;
             if (existingGuest) {
