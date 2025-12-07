@@ -23,7 +23,7 @@ model Guest {
   id        Int       @id @default(autoincrement())
   name      String
   city      String
-  mobile    String
+  mobile    String @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime
   Booking   Booking[]

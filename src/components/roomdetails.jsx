@@ -20,9 +20,28 @@ function RoomDetails() {
         axios.get("http://localhost:4000/roomdata").then(res => setroomdetails(res.data));
     }, []);
 
-    function handleSubmit() {
-        
-    }
+    function handleSubmit (e) {
+        e.preventDefault(); //stop page reload
+
+        const formElement = document.getElementById("assign-form");
+        const formData = new FormData(formElement);
+
+        const entry = {
+            status: formData.get('status'),
+            name: formData.get('name'),
+            city: formData.get('city'),
+            Mobile: formData.get('number'),
+            Intime: formData.get('Intime'),
+            Outtime: formData.get('Outtime'),
+            amount: Number(formData.get('amount')),
+            room: selectedroom?.name
+        };
+
+        setform((prev) => [...prev, entry]);
+
+        console.log("Form entry added:", entry);
+    };
+
 
     if (assignroom && selectedroom) {
     return(
@@ -33,20 +52,21 @@ function RoomDetails() {
             <button onClick={() => setSelectedRoom(null)} style={{"marginLeft": "auto"}}> X </button>
         </div>
         <div id='assign-room-details'>
-            <form id='assign-form'>
+            <form id='assign-form' onSubmit={handleSubmit}>
                 <label>
                     <span>Status <input type='radio' className='status-input' id='Occupied' name="status" value = 'Occupied'/><label for="Occupied">Occupied</label>
                     <input type='radio' id='Free' name="status" value = 'Free'/><label for="Free"> Free </label>
                     <input type='radio' id='Personal Use' name="status" value = 'Personal Use'/><label for="Personal Use">Personal Use</label>
                     </span><br></br>
                     <label for="name">Name: </label><br></br><input type='text' className='text-input' id='name' name='name'/><br></br>
+                    <label for="name">Mobile: </label><br></br><input type='text' className='text-input' id='number' name='number'/><br></br>
                     <label for="City">City: </label><br></br><input type='text' id='city' className='text-input' name='city'/><br></br>
                     <label for="Intime">In-Time: </label><br></br><input type='datetime-local' id='intime' className='text-input' name='Intime'/><br></br>
                     <label for="Outtime">Out-Time: </label><br></br><input type='datetime-local' id='outtime' name='Outtime' className='text-input'/><br></br>
                     <label for="amount"> Amount </label><br></br><input type='number' id='amount' name='amount' className='text-input'/><br></br>
                 </label>
                 <br></br>
-                <button type='submit' onClick={handleSubmit()}>Submit</button>
+                <button type='submit'>Submit</button>
             </form>
         </div>
     </div>
