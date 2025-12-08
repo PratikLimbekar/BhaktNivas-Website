@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Home from './pages/home'
+import Bookings from './pages/bookings'
 import './App.css'
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
 
   return (
     <>
-      <Home></Home>
+      {/* <Home></Home> */}
+      <Bookings></Bookings>
     </>
   )
 }
