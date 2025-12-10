@@ -13,9 +13,32 @@
 
 .logo {
     padding: 10px;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .links {
     padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+ul li {
+    float: right;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+}
+
+li:hover {
+    background-color: white;
+    color: orangered;
 }

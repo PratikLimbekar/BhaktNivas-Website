@@ -25,13 +25,18 @@ app.get("/roomdata", async(req, res) => {
 });
 
 app.get("/bookings-data", async(req, res)=> {
-    // try {
-        const bookings_data = await prisma.Booking.findMany();
+    try {
+        const bookings_data = await prisma.booking.findMany({
+            include: {
+                Room: true,
+                Guest: true
+            }
+    });
         res.json(bookings_data);
-    // } catch (err) {
-    //     console.error(err);
-    //     res.status(500).json({error: "failed to fetch bookings data"});
-    // }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: "failed to fetch bookings data"});
+    }
 })
 
 app.post("/set-status", async (req, res) => {

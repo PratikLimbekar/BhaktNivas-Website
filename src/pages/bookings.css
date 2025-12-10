@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 20px;
     align-items: center;
 }
 
@@ -35,4 +36,42 @@
 
 #bookings-list {
     margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.booking-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.booking-single {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width: 90vw;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+#room-number {
+    background-color: #b9b9b9;
+    padding: 20px;
+}
+
+#middle {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#amount {
+    background-color: #b9b9b9;
+    padding: 20px;
 }

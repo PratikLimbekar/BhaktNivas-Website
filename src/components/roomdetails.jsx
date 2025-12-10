@@ -1,37 +1,4 @@
 //TODO:
-// okay so now, when you are putting values in assign form:
-
-//     if (assignroom && selectedroom) {
-//     return(
-//     <>
-//     <div className='assign-room-card'>
-//         <div id='room-name'>
-//             {`Room: ${selectedroom.name}`}
-//             <button onClick={() => setSelectedRoom(null)} style={{"marginLeft": "auto"}}> X </button>
-//         </div>
-//         <div id='assign-room-details'>
-//             <form id='assign-form' onSubmit={handleSubmit}>
-//                 <label>
-//                     <span>Status <input type='radio' className='status-input' id='Occupied' name="status" value = 'Occupied'/><label htmlFor="Occupied">Occupied</label>
-//                     <input type='radio' id='Free' name="status" value = 'Free'/><label htmlFor="Free"> Free </label>
-//                     <input type='radio' id='Personal Use' name="status" value = 'Personal Use'/><label htmlFor="Personal Use">Personal Use</label>
-//                     </span><br></br>
-//                     <label htmlFor="name">Name: </label><br></br><input type='text' className='text-input' id='name' name='name'/><br></br>
-//                     <label htmlFor="name">Mobile: </label><br></br><input type='text' className='text-input' id='number' name='number'/><br></br>
-//                     <label htmlFor="City">City: </label><br></br><input type='text' id='city' className='text-input' name='city'/><br></br>
-//                     <label htmlFor="Intime">In-Time: </label><br></br><input type='datetime-local' id='intime' className='text-input' name='Intime'/><br></br>
-//                     <label htmlFor="Outtime">Out-Time: </label><br></br><input type='datetime-local' id='outtime' name='Outtime' className='text-input'/><br></br>
-//                     <label htmlFor="amount"> Amount </label><br></br><input type='number' id='amount' name='amount' className='text-input'/><br></br>
-//                 </label>
-//                 <br></br>
-//                 <button type='submit'>Submit</button>
-//             </form>
-//         </div>
-//     </div>
-//     </>
-//     );
-// }
-
 // i want to recommend values that already exist in the database as
 //  a quick selection type thing. For ex, if a guy has already booked 
 // a room sometime ago (ie he is in the database), his name should be 
@@ -51,6 +18,8 @@ function RoomDetails() {
     const [assignroom, setAssignRoom] = useState(false);
     const [refresh, setrefresh] = useState(0);
     const [changestatus, setChangeStatus] = useState(false);
+    var currentroom = 13;
+
     
     
     function handleAssignRoom() {
@@ -63,7 +32,7 @@ function RoomDetails() {
     const [roomdetails, setroomdetails] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:4000/roomdata").then(res => setroomdetails(res.data));
+        axios.get("http://localhost:4000/bookings-data").then(res => setroomdetails(res.data));
     }, [refresh]);
 
     async function handleStatusChange (e) {
@@ -123,12 +92,12 @@ function RoomDetails() {
     if (assignroom && selectedroom) {
     return(
     <>
-    <div className='assign-room-card'>
+    <div className='room-card'>
         <div id='room-name'>
             {`Room: ${selectedroom.name}`}
             <button onClick={() => setSelectedRoom(null)} style={{"marginLeft": "auto"}}> X </button>
         </div>
-        <div id='assign-room-details'>
+        <div id='room-details'>
             <form id='assign-form' onSubmit={handleSubmit}>
                 <label>
                     <span>Status <input type='radio' className='status-input' id='Occupied' name="status" value = 'Occupied'/><label htmlFor="Occupied">Occupied</label>
@@ -140,7 +109,7 @@ function RoomDetails() {
                     <label htmlFor="City">City: </label><br></br><input type='text' id='city' className='text-input' name='city'/><br></br>
                     <label htmlFor="Intime">In-Time: </label><br></br><input type='datetime-local' id='intime' className='text-input' name='Intime'/><br></br>
                     <label htmlFor="Outtime">Out-Time: </label><br></br><input type='datetime-local' id='outtime' name='Outtime' className='text-input'/><br></br>
-                    <label htmlFor="amount"> Amount </label><br></br><input type='number' id='amount' name='amount' className='text-input'/><br></br>
+                    <label htmlFor="amount"> Amount: </label><br></br><input type='number' id='amount' name='amount' className='text-input'/><br></br>
                 </label>
                 <br></br>
                 <button type='submit'>Submit</button>
@@ -154,7 +123,6 @@ function RoomDetails() {
     if (changestatus && selectedroom) {
         return(
         <>
-
         <div className='room-card'>
             <div id='room-name'>
                 {`Room: ${selectedroom.name}`}
@@ -179,6 +147,9 @@ function RoomDetails() {
     }
 
     if (selectedroom) {
+        // useEffect(() => {
+        //     axios.get("http://localhost:4000/get-room-data/current?roomid=id").then(res =>setcurrentroom(res.data))
+        // }, []);
         return(
         <>
             <div className='room-card'>
@@ -188,13 +159,13 @@ function RoomDetails() {
                 </div>
                 
                 <div id='room-details'>
-                    Status <br></br>
-                    Name <br></br>
-                    City <br></br>
-                    Mobile <br></br>
-                    In-time <br></br>
-                    Out-time <br></br>
-                    Amount <br></br>
+                    Stayed at: Room {currentroom.Room?.room_number}<br></br>
+                    Name: {currentroom.Guest?.name} <br></br>
+                    City: {currentroom.Guest?.city} <br></br>
+                    Mobile: {currentroom.Guest?.mobile} <br></br>
+                    In-time: {currentroom.checkin_date} <br></br>
+                    Out-time: {currentroom.checkout_date} <br></br>
+                    Amount: {currentroom.amount} <br></br>
                 </div>
                 <div className='room-details-buttons'>
                     <button id='assign-room' onClick={() => handleAssignRoom()}> Assign Room </button>

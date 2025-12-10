@@ -73,7 +73,6 @@ function FloorMap() {
     if (floor) {
         return (
             <>
-            {selectedroom && <RoomDetails></RoomDetails>}
             <div className={`first-two ${rotateClass}`}>
                 <svg width="95vw" height="95vh" viewBox="0 0 409 544" fill="none" xmlns="http://www.w3.org/2000/svg">
                     
@@ -107,6 +106,7 @@ function FloorMap() {
                     </defs>
                 </svg>
             </div>
+            {selectedroom && <RoomDetails></RoomDetails>}
             </>
         );
     }
@@ -142,6 +142,7 @@ function FloorMap() {
                 ))}
             </svg>
         </div>
+        {selectedroom && <RoomDetails></RoomDetails>}
         </>
     );
 }
