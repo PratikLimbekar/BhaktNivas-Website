@@ -16,7 +16,7 @@
     max-height: 100px;
     display: flex;
     /* align-items: center; */
-    margin-bottom: auto;
+    /* margin-bottom: auto; */
     justify-content: center;
     font-size: xx-large;
     font-weight: bold;
@@ -30,5 +30,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    /* margin-bottom: auto; */
+}
+
+#bookings-list {
     margin-bottom: auto;
 }

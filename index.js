@@ -24,6 +24,16 @@ app.get("/roomdata", async(req, res) => {
     }
 });
 
+app.get("/bookings-data", async(req, res)=> {
+    // try {
+        const bookings_data = await prisma.Booking.findMany();
+        res.json(bookings_data);
+    // } catch (err) {
+    //     console.error(err);
+    //     res.status(500).json({error: "failed to fetch bookings data"});
+    // }
+})
+
 app.post("/set-status", async (req, res) => {
     try {
         const payload = req.body;
@@ -53,7 +63,7 @@ app.post("/set-status", async (req, res) => {
     // detect prisma known errors and respond accordingly
     return res.status(500).json({ error: "Internal server error", details: err.message });
     }
-})
+});
 
 app.post("/book", async(req, res) => {
     try {
@@ -134,6 +144,6 @@ app.post("/book", async(req, res) => {
     // detect prisma known errors and respond accordingly
     return res.status(500).json({ error: "Internal server error", details: err.message });
     }
-})
+});
 
 app.listen(4000, () => console.log("Server running on 4000"));
