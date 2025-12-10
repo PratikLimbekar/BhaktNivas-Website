@@ -6,7 +6,7 @@ import Navbar from '../components/navbar';
 
 
 function Home() {
-    const toggleFloor = useFront((state) => state.setFloor);
+    const toggleFloor = useFront((state) => state.setFloor); 
     const selectedroom = useFront((state) => state.selectedroom);
         if (selectedroom) {
             <>
